@@ -29,6 +29,9 @@ socket.on('locationMessage',(message)=>{
     messages.insertAdjacentHTML('beforeend', html)
 })
 
+// Options
+const {username, room}= Qs.parse(location.search,{ignoreQueryPrefix: true})
+
 messageForm.addEventListener('submit', (e)=>{
     e.preventDefault()
     messageFormButton.setAttribute('disabled','disabled')
@@ -60,3 +63,5 @@ document.querySelector('#send-location').addEventListener('click', (e)=>{
         })
     })
 })
+
+socket.emit('join',{username, room})

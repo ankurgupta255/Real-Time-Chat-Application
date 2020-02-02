@@ -28,12 +28,22 @@ const removeUser=(id)=>{
         return user.id === id
     })
     if(index!==-1){
-        return users.splice(index, 1)
+        return users.splice(index, 1)[0]
     }
 }
 
-addUser({
-    id: 101,
-    username: 'Ankurgupta255',
-    room: 'New Delhi'
-})
+const getUser= (id) =>{
+    return users.find((user)=> user.id === id)
+}
+
+const getUsersInRoom = (room) =>{
+    room = room.trim().toLowerCase()
+    return users.filter((user)=> user.room === room)
+}
+
+module.exports={
+    addUser,
+    removeUser, 
+    getUser,
+    getUsersInRoom
+}

@@ -24,7 +24,7 @@ const addUser=({ id, username, room})=>{
 }
 
 const removeUser=(id)=>{
-    const index=users.findIndex(()=>{
+    const index=users.findIndex((user)=>{
         return user.id === id
     })
     if(index!==-1){

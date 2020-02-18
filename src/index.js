@@ -19,6 +19,7 @@ app.use(express.static(publicPath))
 
 io.on('connection',(socket)=>{
     console.log('New WebSocket Connection')
+    
     socket.on('join',(options,callback)=>{
         const { error, user } = addUser({ id: socket.id, ...options })
         if(error){

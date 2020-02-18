@@ -31,6 +31,16 @@ socket.on('locationMessage',(message)=>{
     messages.insertAdjacentHTML('beforeend', html)
 })
 
+const sidebarTemplate = document.querySelector('#sidebar-template').innerHTML
+
+socket.on('roomData', ({room, users})=>{
+    const html = Mustache.render(sidebarTemplate, {
+        room, 
+        users
+    })
+    document.querySelector('#sidebar').innerHTML = html
+})
+
 // Options
 const {username, room}= Qs.parse(location.search,{ignoreQueryPrefix: true})
 

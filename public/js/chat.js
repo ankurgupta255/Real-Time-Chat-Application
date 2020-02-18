@@ -12,6 +12,7 @@ const messageTemplate=document.querySelector('#message-template').innerHTML
 socket.on('message', (message)=>{
     console.log(message)
     const html=Mustache.render(messageTemplate, {
+        username: message.username,
         message: message.url,
         createdAt: moment(message.createdAt).format('h:mm a')
     })
@@ -23,6 +24,7 @@ const locationTemplate=document.querySelector('#location-template').innerHTML
 socket.on('locationMessage',(message)=>{
     console.log(message)
     const html=Mustache.render(locationTemplate, {
+        username: message.username,
         url: message.url,
         createdAt: moment(message.createdAt).format('h:mm a')
     })

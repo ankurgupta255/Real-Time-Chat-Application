@@ -36,13 +36,14 @@ io.on('connection',(socket)=>{
     })
     
     socket.on('sendMessage', (message, callback)=>{
+        const user = getUser(socket.id)
         const filter=new Filter()
 
         if(filter.isProfane(message)){
             return callback('Profanity is not allowed')
         }
 
-        io.emit('message', generateMessage(message))
+        io.to(user.room).emit('message', generateMessage(user.username,message))
         callback('Delivered')
     })
 
@@ -57,7 +58,8 @@ io.on('connection',(socket)=>{
         }
     })
     socket.on('sendPosition', (position, callback)=>{
-        io.emit('locationMessage', generateLocation(`https://google.com/maps?q=${position.Latitude},${position.Longitude}`))
+        const user = getUser(socket.id)
+        io.to(user.room).emit('locationMessage', generateLocation(user.username,`https://google.com/maps?q=${position.Latitude},${position.Longitude}`))
         callback('The Location is Delivered!')
     })
 })
